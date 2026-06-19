@@ -407,7 +407,22 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function renderVisual(type) {
+function renderVisual(type, data = {}) {
+  if (type === "pdf-image") {
+    const notes = data.notes || [];
+    return `
+      <figure class="pdf-figure">
+        <img src="${escapeHtml(data.src || "")}" alt="${escapeHtml(data.alt || "PDF 핵심 그림")}" loading="lazy" />
+        ${data.caption ? `<figcaption>${escapeHtml(plainText(data.caption))}</figcaption>` : ""}
+      </figure>
+      ${notes.length ? `
+        <ul class="image-notes">
+          ${notes.map((item) => `<li>${escapeHtml(plainText(item))}</li>`).join("")}
+        </ul>
+      ` : ""}
+    `;
+  }
+
   if (type === "eye") {
     return `<img class="eye-asset" src="./assets/eye-map.svg" alt="눈 핵심 구조 지도" />`;
   }
@@ -724,7 +739,16 @@ function plainText(value) {
     .replaceAll("출제될 가능성이 높다.", "또 나올 가능성이 커.")
     .replaceAll("출제 포인트", "시험 포인트")
     .replaceAll("출제", "시험")
+    .replaceAll("문항을", "문제를")
+    .replaceAll("문항은", "문제는")
+    .replaceAll("문항이", "문제가")
+    .replaceAll("문항과", "문제와")
+    .replaceAll("문항마다", "문제마다")
+    .replaceAll("문항으로", "문제로")
     .replaceAll("문항", "문제")
+    .replaceAll("문제을", "문제를")
+    .replaceAll("문제은", "문제는")
+    .replaceAll("문제이", "문제가")
     .replaceAll("선지", "보기")
     .replaceAll("프린트 기준", "프린트에서는")
     .replaceAll("핵심정리 기준", "핵심정리에서는")
@@ -783,6 +807,8 @@ function readableAnswer(answer) {
 }
 
 function getIntent(item) {
+  if (item.intent) return plainText(item.intent);
+
   const question = item.question;
   const answer = readableAnswer(item.answer);
 
@@ -829,6 +855,8 @@ function getIntent(item) {
 }
 
 function getTermBasic(item) {
+  if (item.term) return plainText(item.term);
+
   const answer = item.answer;
   if (termBasics[answer]) return `${readableAnswer(answer)}: ${termBasics[answer]}`;
 
@@ -853,6 +881,8 @@ function getTermBasic(item) {
 }
 
 function getEasyConcept(item) {
+  if (item.concept) return plainText(item.concept);
+
   const question = item.question;
   const answer = readableAnswer(item.answer);
   const easy = plainText(item.easy);
@@ -915,14 +945,16 @@ function renderQuestions(questions = []) {
             <p class="note"><b>외우는 법</b> ${escapeHtml(plainText(item.memory))}</p>
             <p class="note"><b>시험 포인트</b> ${escapeHtml(getExamPoint(item))}</p>
           </div>
-          <details class="choices">
-            <summary>보기</summary>
-            <ol class="choice-list">
-              ${item.choices.map((choice, idx) => `
-                <li class="${choice === item.answer ? "correct" : ""}">${idx + 1}. ${escapeHtml(choice)}</li>
-              `).join("")}
-            </ol>
-          </details>
+          ${(item.choices || []).length ? `
+            <details class="choices">
+              <summary>보기</summary>
+              <ol class="choice-list">
+                ${item.choices.map((choice, idx) => `
+                  <li class="${choice === item.answer ? "correct" : ""}">${idx + 1}. ${escapeHtml(choice)}</li>
+                `).join("")}
+              </ol>
+            </details>
+          ` : ""}
         </article>
       `).join("")}
     </div>
@@ -963,7 +995,7 @@ function renderSlide() {
       </div>
       <div class="slide-layout">
         <aside class="visual-stack">
-          <div class="visual-panel">${renderVisual(slide.visual)}</div>
+          <div class="visual-panel">${renderVisual(slide.visual, slide.visualData)}</div>
           <div class="study-panel">
             <h2>${escapeHtml(plainText("핵심 압축"))}</h2>
             <ul class="summary-list">
