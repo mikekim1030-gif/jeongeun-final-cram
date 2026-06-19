@@ -620,9 +620,9 @@ function renderSections(sections = []) {
     <div class="section-grid">
       ${sections.map((section) => `
         <section class="section-panel">
-          <strong>${escapeHtml(section.title)}</strong>
+          <strong>${escapeHtml(plainText(section.title))}</strong>
           <ul class="section-list">
-            ${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+            ${section.items.map((item) => `<li>${escapeHtml(plainText(item))}</li>`).join("")}
           </ul>
         </section>
       `).join("")}
@@ -683,17 +683,54 @@ const termBasics = {
   "렌즈미터": "렌즈 도수와 프리즘을 재는 기계.",
   "프리즘": "빛을 한쪽으로 꺾는 렌즈 모양. 기저 방향으로 빛을 보낸다고 봐.",
   "PD": "동공 사이 거리. 안경 중심을 맞출 때 꼭 필요해.",
+  "기준 PD": "눈이 도는 중심끼리 잰 거리. 안경을 만들 때 기준으로 삼는 PD야.",
+  "해부학적 PD": "동공 중심끼리 잰 거리. 눈 생김새를 그대로 잰 값이야.",
+  "생리학적 PD": "실제로 바라보는 선끼리 잰 거리. 기능적으로 보는 PD야.",
   "DBL": "양쪽 렌즈 사이 연결부 폭. 안경테 숫자에서 가운데 값으로 자주 나와.",
   "박싱시스템": "렌즈 모양을 사각형 박스에 넣고 치수를 재는 방식.",
+  "필요렌즈 최소직경": "가공할 때 최소로 필요한 렌즈 크기. 작게 주문하면 테에 못 넣어.",
+  "광학적요소,미적요소,해부학적요소": "안경이 갖춰야 할 세 가지야. 잘 보여야 하고, 보기 좋아야 하고, 얼굴에 맞아야 해.",
+  "렌즈삽입부 크기는 56mm이다.": "안경테 숫자에서 첫 숫자 56은 렌즈가 들어가는 칸의 가로 크기야.",
+  "렌즈삽입부 크기가 54 mm이다.": "안경테 숫자에서 첫 숫자 54는 렌즈가 들어가는 칸의 가로 크기야.",
+  "다리길이: 135 mm": "안경테 표기에서 마지막 숫자는 다리 길이를 말해.",
+  "코받침 간격을 넓혀 준다.": "코받침 사이를 벌리면 안경이 얼굴에서 내려가거나 압박이 줄 수 있어.",
+  "상측정점굴절력": "렌즈 뒤쪽 꼭짓점 기준으로 본 도수. 안경렌즈 도수에서 자주 쓰는 말이야.",
+  "정점굴절력": "렌즈 꼭짓점 기준 도수. 렌즈미터로 재는 값과 묶어서 봐.",
+  "비점수차 조건": "렌즈를 비스듬히 볼 때 생기는 흐림을 줄이기 위한 조건이야.",
+  "경사각, 앞수평면휨각": "안경테가 얼굴 앞에서 기울고 휘는 정도야. 회전점 조건에서 같이 나와.",
   "피팅": "안경을 얼굴에 맞게 조정하는 과정. 흘러내림, 기울기, 높이를 잡는 일이야.",
 };
 
-function humanizeText(value) {
+function plainText(value) {
   return String(value || "")
     .replaceAll("계산식이나 정의를 바꿔 다시 묻기 쉬운 문항이다.", "계산식이나 정의만 살짝 바꿔서 또 나올 수 있어.")
-    .replaceAll("문장 속 단서어를 정답과 바로 연결한다.", "단서어만 보면 바로 정답이 떠오르게 해.")
+    .replaceAll("문장 속 단서어를 정답과 바로 연결한다.", "단서만 보면 바로 정답이 떠오르게 해.")
     .replaceAll("반복되거나 계산으로 다시 나오기 쉬운 포인트다.", "반복이나 계산으로 또 나올 수 있어.")
-    .replaceAll("정답 단서와 헷갈리는 선지를 같이 본다.", "정답 단서랑 헷갈리는 선지를 같이 봐.")
+    .replaceAll("정답 단서와 헷갈리는 선지를 같이 본다.", "정답 단서랑 헷갈리는 보기를 같이 봐.")
+    .replaceAll("출제 가능성 높음", "시험에 잘 나옴")
+    .replaceAll("출제 레이더", "시험 레이더")
+    .replaceAll("핵심 압축", "딱 볼 것")
+    .replaceAll("요약 장표", "마지막 요약")
+    .replaceAll("중복/핵심 문항 기준", "반복 문제 기준")
+    .replaceAll("반복/계산 문항 기준", "반복/계산 문제 기준")
+    .replaceAll("중복/핵심정리 기준", "반복/핵심정리 기준")
+    .replaceAll("기준으로", "보고")
+    .replaceAll("바탕으로", "보고")
+    .replaceAll("정리했다.", "묶어 놨어.")
+    .replaceAll("구성했다.", "만들었어.")
+    .replaceAll("만들었다.", "만들었어.")
+    .replaceAll("출제된", "나온")
+    .replaceAll("출제되기 쉽다.", "또 나올 수 있어.")
+    .replaceAll("출제될 가능성이 높다.", "또 나올 가능성이 커.")
+    .replaceAll("출제 포인트", "시험 포인트")
+    .replaceAll("출제", "시험")
+    .replaceAll("문항", "문제")
+    .replaceAll("선지", "보기")
+    .replaceAll("프린트 기준", "프린트에서는")
+    .replaceAll("핵심정리 기준", "핵심정리에서는")
+    .replaceAll("문제이다.", "문제야.")
+    .replaceAll("답이다.", "답이야.")
+    .replaceAll("문제이라", "문제라")
     .replaceAll("문항이다.", "문제로 다시 나올 수 있어.")
     .replaceAll("문제다.", "문제야.")
     .replaceAll("출제된다.", "나올 수 있어.")
@@ -718,7 +755,27 @@ function humanizeText(value) {
     .replaceAll("받는다.", "받아.")
     .replaceAll("준다.", "줘.")
     .replaceAll("나눈다.", "나눠.")
-    .replaceAll("가진다.", "가져.");
+    .replaceAll("가진다.", "가져.")
+    .replaceAll("다룬다.", "다뤄.")
+    .replaceAll("본다.", "봐.")
+    .replaceAll("한다.", "해.")
+    .replaceAll("된다.", "돼.")
+    .replaceAll("있다.", "있어.")
+    .replaceAll("없다.", "없어.")
+    .replaceAll("크다.", "커.")
+    .replaceAll("작다.", "작아.")
+    .replaceAll("같다.", "같아.")
+    .replaceAll("나온다.", "나와.")
+    .replaceAll("생긴다.", "생겨.")
+    .replaceAll("줄인다.", "줄여.")
+    .replaceAll("증가한다.", "늘어.")
+    .replaceAll("감소한다.", "줄어.")
+    .replaceAll("의미한다.", "뜻해.")
+    .replaceAll("나타낸다.", "나타내.");
+}
+
+function humanizeText(value) {
+  return plainText(value);
 }
 
 function readableAnswer(answer) {
@@ -750,6 +807,9 @@ function getIntent(item) {
   if (question.includes("기능") || question.includes("역할") || question.includes("작용")) {
     return `무슨 일을 하는지 묻는 문제야. 기능 문장을 읽고 이름을 고르는 방식이야.`;
   }
+  if (answer.includes("요소")) {
+    return "안경을 볼 때 어떤 기준으로 나눠야 하는지 묻는 문제야. 잘 보임, 보기 좋음, 얼굴 맞춤을 나눠 보면 돼.";
+  }
   if (question.includes("몇") || question.includes("용적") || question.includes("비율") || question.includes("굴절력") || question.includes("pH") || question.includes("기준")) {
     return "숫자나 기준값을 묻는 문제야. 계산보다 값 자체를 안 헷갈리는 게 먼저야.";
   }
@@ -765,23 +825,75 @@ function getIntent(item) {
   if (question.includes("색") || question.includes("형상") || question.includes("모양")) {
     return "겉모양이나 특징을 묻는 문제야. 그림처럼 떠올리면 빨라.";
   }
-  return "문장 속 단서가 어떤 답을 가리키는지 보는 문제야. 핵심 단서와 답 이름을 붙여서 봐.";
+  return "문제 문장이 설명하는 말을 보기에서 찾는 거야. 어려운 말은 빼고, 실제로 뭘 말하는지만 잡아.";
 }
 
 function getTermBasic(item) {
   const answer = item.answer;
-  if (termBasics[answer]) return `${answer}: ${termBasics[answer]}`;
+  if (termBasics[answer]) return `${readableAnswer(answer)}: ${termBasics[answer]}`;
 
   if (answer.includes("→")) {
-    return `이건 단어 하나보다 순서가 답이야. ${answer} 이 흐름을 통째로 읽어.`;
+    return `순서 문제: ${readableAnswer(answer)}. 단어 하나가 아니라 이 흐름 전체가 답이야.`;
   }
   if (/[0-9]/.test(answer) || answer.includes("+") || answer.includes("-") || answer.includes("=")) {
-    return `이건 이름보다 값이 답이야. ${answer}를 숫자 모양 그대로 눈에 익혀.`;
+    if (answer.includes("△")) return `${readableAnswer(answer)}: 프리즘 양과 방향을 같이 쓰는 답이야. 숫자만 보지 말고 BI, BO, BU 같은 방향까지 봐.`;
+    if (answer.includes("D")) return `${readableAnswer(answer)}: 렌즈 힘을 말하는 값이야. D는 빛을 얼마나 세게 꺾는지 보는 단위야.`;
+    if (answer.includes("mm")) return `${readableAnswer(answer)}: 길이 답이야. 안경 쪽 문제에서는 몇 mm인지가 바로 점수야.`;
+    if (answer.includes("cm")) return `${readableAnswer(answer)}: 거리 답이야. 렌즈 앞인지 뒤인지까지 같이 봐.`;
+    if (answer.includes("°")) return `${readableAnswer(answer)}: 각도 답이야. 방향이나 회전량을 묻는 문제에서 나와.`;
+    return `${readableAnswer(answer)}: 이름보다 값이 답이야. 숫자 모양 그대로 눈에 익혀.`;
+  }
+  if (answer.endsWith("이다.") || answer.endsWith("한다.") || answer.endsWith("준다.")) {
+    return `${plainText(readableAnswer(answer))}: 문장 전체가 답이야. 그래도 먼저 봐야 할 건 앞쪽 핵심 단어야.`;
   }
   if (answer.length > 16) {
     return `${readableAnswer(answer)}: 답이 길면 쪼개서 봐. 핵심 단어를 먼저 잡고, 나머지는 조건으로 붙이면 돼.`;
   }
-  return `${readableAnswer(answer)}: 이 문제에서 골라야 하는 핵심 이름이야. 문제 문장 속 단서와 한 쌍으로 묶어.`;
+  return `${readableAnswer(answer)}: 보기에서 골라야 하는 이름이야. 문제 문장과 같은 뜻으로 묶어.`;
+}
+
+function getEasyConcept(item) {
+  const question = item.question;
+  const answer = readableAnswer(item.answer);
+  const easy = plainText(item.easy);
+
+  if (item.answer.includes("→")) {
+    return `이건 길찾기야. 어디서 시작해서 어디로 빠지는지만 안 섞으면 돼. ${easy}`;
+  }
+  if (/[0-9]/.test(item.answer) || item.answer.includes("+") || item.answer.includes("-") || item.answer.includes("=")) {
+    return `이건 숫자만 외우면 금방 헷갈려. 먼저 무엇의 값인지 잡고, 그다음 ${answer}를 붙이면 돼. ${easy}`;
+  }
+  if (question.includes("영양공급") || question.includes("공급")) {
+    return `영양공급은 어렵게 말해서 그렇지, 그냥 "어디서 밥을 받냐"는 뜻이야. ${easy}`;
+  }
+  if (question.includes("지배") || question.includes("신경")) {
+    return `지배한다는 말은 그 신경이 움직이게 하거나 느끼게 한다는 뜻이야. ${easy}`;
+  }
+  if (question.includes("통과")) {
+    return `통과 문제는 길 이름 맞히기야. 누가 어느 문으로 지나가는지만 묶으면 돼. ${easy}`;
+  }
+  if (question.includes("위치") || question.includes("장소") || question.includes("곳은")) {
+    return `위치 문제는 지도 찍기야. 이름을 외우기보다 어디에 붙어 있는지 먼저 잡아. ${easy}`;
+  }
+  if (question.includes("기능") || question.includes("역할") || question.includes("작용")) {
+    return `기능 문제는 "이게 무슨 일을 하냐"를 묻는 거야. 일의 설명을 보고 이름을 고르면 돼. ${easy}`;
+  }
+  if (item.answer.includes("요소")) {
+    return `안경은 잘 보이는지만 보면 끝이 아니야. 도수처럼 잘 보이는 부분, 얼굴에 어울리는 부분, 실제 얼굴에 맞는 부분을 같이 봐야 해. ${easy}`;
+  }
+  if (question.includes("법칙") || question.includes("현상") || question.includes("원리")) {
+    return `현상 이름 붙이기 문제야. 설명을 읽고 "아, 이게 ${answer}구나" 하고 붙이면 돼. ${easy}`;
+  }
+  if (question.includes("색") || question.includes("형상") || question.includes("모양")) {
+    return `모양이나 색을 보는 문제야. 말로만 외우지 말고 그림처럼 떠올리면 빨라. ${easy}`;
+  }
+  return `${easy} 이 설명에 가장 잘 맞는 이름이나 문장을 보기에서 고르면 돼.`;
+}
+
+function getExamPoint(item) {
+  const point = plainText(item.point);
+  if (!point) return "비슷한 보기가 섞여도 답 이름만 흔들리지 않으면 돼.";
+  return point;
 }
 
 function renderQuestions(questions = []) {
@@ -792,19 +904,19 @@ function renderQuestions(questions = []) {
         <article class="question-card ${item.hot ? "hot" : ""}">
           <div class="question-meta">
             <span class="pill">Q${item.no}</span>
-            ${item.hot ? `<span class="pill hot-pill">출제 가능성 높음</span>` : ""}
+            ${item.hot ? `<span class="pill hot-pill">${plainText("출제 가능성 높음")}</span>` : ""}
           </div>
           <h3>${escapeHtml(item.question)}</h3>
           <div class="answer-block">
             <p class="note intent-note"><b>뭘 묻냐</b> ${escapeHtml(getIntent(item))}</p>
-            <p class="note term-note"><b>말뜻</b> ${escapeHtml(getTermBasic(item))}</p>
-            <div class="answer"><small>정답</small> ${escapeHtml(item.answer)}</div>
-            <p class="note"><b>개념</b> ${escapeHtml(humanizeText(item.easy))}</p>
-            <p class="note"><b>외우기</b> ${escapeHtml(humanizeText(item.memory))}</p>
-            <p class="note"><b>시험에선</b> ${escapeHtml(humanizeText(item.point))}</p>
+            <p class="note term-note"><b>단어 뜻</b> ${escapeHtml(plainText(getTermBasic(item)))}</p>
+            <p class="note concept-note"><b>쉽게 개념</b> ${escapeHtml(getEasyConcept(item))}</p>
+            <div class="answer"><small>정답</small> ${escapeHtml(readableAnswer(item.answer))}</div>
+            <p class="note"><b>외우는 법</b> ${escapeHtml(plainText(item.memory))}</p>
+            <p class="note"><b>시험 포인트</b> ${escapeHtml(getExamPoint(item))}</p>
           </div>
           <details class="choices">
-            <summary>선지</summary>
+            <summary>보기</summary>
             <ol class="choice-list">
               ${item.choices.map((choice, idx) => `
                 <li class="${choice === item.answer ? "correct" : ""}">${idx + 1}. ${escapeHtml(choice)}</li>
@@ -824,8 +936,8 @@ function renderCheats(rows = []) {
       <tbody>
         ${rows.map(([left, right]) => `
           <tr>
-            <th>${escapeHtml(left)}</th>
-            <td>${escapeHtml(right)}</td>
+            <th>${escapeHtml(plainText(left))}</th>
+            <td>${escapeHtml(plainText(right))}</td>
           </tr>
         `).join("")}
       </tbody>
@@ -843,19 +955,19 @@ function renderSlide() {
     <section class="slide" data-theme="${escapeHtml(slide.theme)}">
       <div class="slide-head">
         <div>
-          <span class="eyebrow">${escapeHtml(slide.eyebrow)}</span>
-          <h1>${escapeHtml(slide.title)}</h1>
-          <p class="lead">${escapeHtml(slide.lead)}</p>
+          <span class="eyebrow">${escapeHtml(plainText(slide.eyebrow))}</span>
+          <h1>${escapeHtml(plainText(slide.title))}</h1>
+          <p class="lead">${escapeHtml(plainText(slide.lead))}</p>
         </div>
-        <span class="source-chip">${escapeHtml(slide.source)}</span>
+        <span class="source-chip">${escapeHtml(plainText(slide.source))}</span>
       </div>
       <div class="slide-layout">
         <aside class="visual-stack">
           <div class="visual-panel">${renderVisual(slide.visual)}</div>
           <div class="study-panel">
-            <h2>핵심 압축</h2>
+            <h2>${escapeHtml(plainText("핵심 압축"))}</h2>
             <ul class="summary-list">
-              ${(slide.summary || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+              ${(slide.summary || []).map((item) => `<li>${escapeHtml(plainText(item))}</li>`).join("")}
             </ul>
           </div>
         </aside>
@@ -868,7 +980,7 @@ function renderSlide() {
     </section>
   `;
 
-  slideKicker.textContent = `${state.index + 1}. ${slide.eyebrow}`;
+  slideKicker.textContent = `${state.index + 1}. ${plainText(slide.eyebrow)}`;
   progressLabel.textContent = `${state.index + 1} / ${slides.length}`;
   progressBar.style.width = `${((state.index + 1) / slides.length) * 100}%`;
   updateRail();
@@ -880,7 +992,7 @@ function renderRail() {
   rail.innerHTML = slides.map((slide, idx) => `
     <button class="rail-button" type="button" data-index="${idx}" aria-label="${idx + 1}번 장표">
       <span class="rail-num">${idx + 1}</span>
-      <span>${escapeHtml(slide.eyebrow)}</span>
+      <span>${escapeHtml(plainText(slide.eyebrow))}</span>
     </button>
   `).join("");
 

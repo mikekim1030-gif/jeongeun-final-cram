@@ -1019,7 +1019,8 @@ summary:focus-visible,
 }
 
 .intent-note,
-.term-note {
+.term-note,
+.concept-note {
   padding: 11px 12px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -1033,10 +1034,14 @@ summary:focus-visible,
   background: #fff7e4;
 }
 
+.concept-note {
+  background: #f6f8ff;
+}
+
 .note b {
   display: inline-flex;
   align-items: center;
-  min-width: 58px;
+  min-width: 82px;
   margin-right: 6px;
   color: var(--coral);
   font-weight: 900;
