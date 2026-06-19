@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">시기해부학 핵심 구조 지도</title>
+  <desc id="desc">수정체, 유리체, 망막, 맥락막, 안와, 눈물길을 단순화한 학습용 그림</desc>
+  <rect width="900" height="520" fill="#f7f4ea"/>
+  <path d="M105 265C205 110 389 64 548 117c119 40 202 133 247 149-45 16-128 109-247 149-159 53-343 7-443-150Z" fill="#fffaf0" stroke="#20312f" stroke-width="10"/>
+  <circle cx="448" cy="265" r="160" fill="#dff2ed" stroke="#2b7068" stroke-width="8"/>
+  <ellipse cx="382" cy="265" rx="42" ry="111" fill="#f8d36f" stroke="#8a640a" stroke-width="7"/>
+  <ellipse cx="497" cy="265" rx="86" ry="122" fill="#cce7f5" opacity=".88" stroke="#4b7f9a" stroke-width="6"/>
+  <path d="M604 175c56 42 92 75 127 90-35 16-71 49-127 90" fill="none" stroke="#8e4b3f" stroke-width="16" stroke-linecap="round"/>
+  <path d="M604 181c49 36 80 65 108 84-28 19-59 48-108 84" fill="none" stroke="#ec8b6f" stroke-width="8" stroke-linecap="round"/>
+  <path d="M744 265h80" stroke="#20312f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M100 166c-48 31-67 70-65 99 2 35 33 69 78 91" fill="none" stroke="#3d617c" stroke-width="14" stroke-linecap="round"/>
+  <path d="M148 168c25-23 55-31 89-27" fill="none" stroke="#73a7bf" stroke-width="10" stroke-linecap="round"/>
+  <path d="M146 362c32 20 68 25 105 14" fill="none" stroke="#73a7bf" stroke-width="10" stroke-linecap="round"/>
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#20312f">
+    <text x="333" y="108">수정체</text>
+    <text x="461" y="95">유리체</text>
+    <text x="624" y="145">망막/맥락막</text>
+    <text x="78" y="125">눈꺼풀</text>
+    <text x="690" y="247">시신경</text>
+    <text x="166" y="428">눈물길</text>
+  </g>
+  <g stroke="#20312f" stroke-width="4" stroke-linecap="round">
+    <path d="M373 118l8 43"/>
+    <path d="M505 104l0 45"/>
+    <path d="M672 154l-37 44"/>
+    <path d="M123 132l-11 39"/>
+    <path d="M718 253l-36 0"/>
+    <path d="M205 407l-45-42"/>
+  </g>
+</svg>
+

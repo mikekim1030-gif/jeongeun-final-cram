@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>시기해부학 기말 벼락치기</title>
+    <meta name="description" content="시기해부학 기말고사 대비 장표형 학습 사이트" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <div>
+            <strong>시기해부학 기말 벼락치기</strong>
+            <span id="slideKicker">장표</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="firstBtn" type="button" aria-label="처음 장표" title="처음 장표">
+            <i data-lucide="skip-back"></i>
+          </button>
+          <button class="icon-button" id="modeBtn" type="button" aria-label="정답 보기 전환" title="정답 보기 전환">
+            <i data-lucide="eye"></i>
+          </button>
+          <button class="icon-button" id="lastBtn" type="button" aria-label="마지막 장표" title="마지막 장표">
+            <i data-lucide="skip-forward"></i>
+          </button>
+        </div>
+      </header>
+
+      <aside class="slide-rail" id="slideRail" aria-label="장표 목록"></aside>
+
+      <main class="deck" id="deck" tabindex="-1" aria-live="polite"></main>
+
+      <footer class="controlbar">
+        <button class="nav-button" id="prevBtn" type="button" aria-label="이전 장표" title="이전 장표">
+          <i data-lucide="chevron-left"></i>
+        </button>
+        <div class="progress-wrap" aria-hidden="true">
+          <div class="progress-meter"><span id="progressBar"></span></div>
+          <span id="progressLabel">1 / 1</span>
+        </div>
+        <button class="nav-button" id="nextBtn" type="button" aria-label="다음 장표" title="다음 장표">
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>
