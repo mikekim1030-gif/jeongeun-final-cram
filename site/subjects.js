@@ -472,5 +472,10 @@
     setSubject(button.dataset.subject);
   });
 
+  window.registerCramSubject = (id, subject) => {
+    subjects[id] = subject;
+    renderSubjectTabs();
+  };
+
   renderSubjectTabs();
 })();

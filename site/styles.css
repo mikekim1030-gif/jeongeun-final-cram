@@ -613,6 +613,64 @@ button {
   font-weight: 900;
 }
 
+.diagram-wave,
+.diagram-mirror {
+  width: min(270px, 100%);
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.wave-line {
+  width: 230px;
+  height: 90px;
+  background:
+    radial-gradient(ellipse at center, transparent 0 55%, var(--teal) 56% 60%, transparent 61%) 0 0 / 76px 90px repeat-x;
+  position: relative;
+}
+
+.wave-line::after {
+  content: "λ";
+  position: absolute;
+  right: 12px;
+  top: 24px;
+  color: var(--coral);
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.mirror-plane {
+  width: 210px;
+  height: 8px;
+  background: var(--blue);
+  transform: rotate(-24deg);
+  border-radius: 999px;
+  position: relative;
+}
+
+.mirror-plane::before,
+.mirror-plane::after {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 4px;
+  background: var(--coral);
+  transform-origin: right center;
+  right: 54%;
+  top: -46px;
+}
+
+.mirror-plane::before {
+  transform: rotate(42deg);
+}
+
+.mirror-plane::after {
+  transform: rotate(-42deg);
+  top: 50px;
+  background: var(--teal);
+}
+
 .diagram-orbit {
   border: 7px solid var(--blue);
   clip-path: polygon(50% 5%, 92% 30%, 82% 82%, 50% 97%, 18% 82%, 8% 30%);

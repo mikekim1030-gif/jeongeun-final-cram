@@ -581,6 +581,36 @@ function renderVisual(type) {
     `;
   }
 
+  if (type === "wave") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-wave" aria-label="파동과 파장">
+          <div class="wave-line"></div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>파장이 길수록 회절이 잘 된다</li>
+        <li>진동수는 매질이 바뀌어도 변하지 않는다</li>
+        <li>브루스터각에서는 반사광이 완전편광</li>
+      </ul>
+    `;
+  }
+
+  if (type === "mirror") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-mirror" aria-label="반사와 거울">
+          <div class="mirror-plane"></div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>입사각 = 반사각</li>
+        <li>거울 회전량의 2배만큼 상이 회전</li>
+        <li>전반사는 임계각보다 클 때 발생</li>
+      </ul>
+    `;
+  }
+
   return "";
 }
 
