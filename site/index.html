@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>시기해부학 기말 벼락치기</title>
-    <meta name="description" content="시기해부학 기말고사 대비 장표형 학습 사이트" />
+    <title>기말 벼락치기 장표</title>
+    <meta name="description" content="시기해부학과 안경조제가공이론 기말고사 대비 장표형 학습 사이트" />
     <link rel="stylesheet" href="./styles.css" />
     <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script defer src="./app.js"></script>
+    <script defer src="./subjects.js"></script>
   </head>
   <body>
     <div class="app-shell">
@@ -15,10 +16,11 @@
         <div class="brand">
           <span class="brand-mark" aria-hidden="true"></span>
           <div>
-            <strong>시기해부학 기말 벼락치기</strong>
+            <strong>기말 벼락치기 장표</strong>
             <span id="slideKicker">장표</span>
           </div>
         </div>
+        <nav class="subject-tabs" id="subjectTabs" aria-label="과목 선택"></nav>
         <div class="top-actions">
           <button class="icon-button" id="firstBtn" type="button" aria-label="처음 장표" title="처음 장표">
             <i data-lucide="skip-back"></i>

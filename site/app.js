@@ -513,6 +513,74 @@ function renderVisual(type) {
     `;
   }
 
+  if (type === "frame") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-frame" aria-label="안경테 표기">
+          <div>
+            <div class="frame-code"><span>52</span><small>□</small><span>16</span></div>
+            <div class="frame-labels"><span>렌즈삽입부</span><span>연결부</span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>FPD = 렌즈삽입부 + 연결부</li>
+        <li>52□16 140 = A 52, DBL 16, 다리 140</li>
+        <li>최소직경 = ED + 편심량 + 여유분</li>
+      </ul>
+    `;
+  }
+
+  if (type === "prism") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-prism" aria-label="프리즘 공식">
+          <div class="prism-lens"></div>
+          <div class="prism-formula">P = cF</div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>c는 cm 단위 편심거리</li>
+        <li>고도수일수록 작은 오차도 프리즘이 커진다</li>
+        <li>TABO: 우안 BI 0도, BO 180도</li>
+      </ul>
+    `;
+  }
+
+  if (type === "fitting") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-fitting" aria-label="피팅 순서">
+          <div class="fit-step">표준상태피팅</div>
+          <div class="flow-arrow">↓</div>
+          <div class="fit-step">기본피팅</div>
+          <div class="flow-arrow">↓</div>
+          <div class="fit-step">가공 후 / 자각피팅</div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>높으면 코받침 간격을 넓혀 낮춘다</li>
+        <li>설계점 측정 전에는 기본피팅</li>
+        <li>착용감 질문은 자각피팅</li>
+      </ul>
+    `;
+  }
+
+  if (type === "lensmeter") {
+    return `
+      <div class="mini-diagram">
+        <div class="diagram-lensmeter" aria-label="렌즈미터">
+          <div class="meter-body"></div>
+        </div>
+      </div>
+      <ul class="hot-list">
+        <li>렌즈미터 = 상측정점굴절력 측정</li>
+        <li>프리즘 기저방향과 토릭 주경선 확인</li>
+        <li>투영식은 여러 사람이 동시에 보기 쉽다</li>
+      </ul>
+    `;
+  }
+
   return "";
 }
 
@@ -685,6 +753,8 @@ window.addEventListener("keydown", (event) => {
     goTo(slides.length - 1);
   }
 });
+
+window.cramApi = { slides, state, renderRail, renderSlide };
 
 renderRail();
 renderSlide();
