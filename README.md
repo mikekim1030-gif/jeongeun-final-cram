@@ -17,5 +17,5 @@ python -m http.server 5173 -d site
 ## Cloudflare Pages
 
 ```powershell
-npx wrangler pages deploy site --project-name sigianatomy-final-cram
+npx wrangler pages deploy site --project-name jeongeun-final-cram
 ```
