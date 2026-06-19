@@ -1018,7 +1018,26 @@ summary:focus-visible,
   font-weight: 540;
 }
 
+.intent-note,
+.term-note {
+  padding: 11px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+}
+
+.intent-note {
+  background: #eef7f5;
+}
+
+.term-note {
+  background: #fff7e4;
+}
+
 .note b {
+  display: inline-flex;
+  align-items: center;
+  min-width: 58px;
+  margin-right: 6px;
   color: var(--coral);
   font-weight: 900;
 }

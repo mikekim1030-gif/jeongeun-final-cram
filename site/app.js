@@ -630,6 +630,160 @@ function renderSections(sections = []) {
   `;
 }
 
+const termBasics = {
+  "망막중심동맥": "망막 안쪽으로 들어가는 큰 혈관. 망막 안쪽 층에 밥을 주는 길이라고 보면 돼.",
+  "맥락막모세혈관": "망막 바깥쪽 바로 뒤에 깔린 아주 가는 혈관. 망막색소상피가 여기서 영양을 받아.",
+  "섬모체신경": "각막 감각과 연결되는 신경. 각막을 건드리면 바로 아픈 이유랑 묶어서 봐.",
+  "비타민 A 결핍": "어두운 곳에서 보는 데 필요한 재료가 부족한 상태. 그래서 야맹과 붙어 나와.",
+  "방수": "눈 안을 도는 맑은 물. 각막과 수정체에 영양을 주고 안압도 맞춰.",
+  "섬모체돌기 무색소상피": "방수를 만드는 공장. '무색소상피'까지 붙여서 외워야 해.",
+  "유리체": "눈 속을 가장 많이 채우는 투명한 젤리. '가장 큰 gel'이라는 단서가 나오면 이거야.",
+  "양볼록렌즈": "양쪽이 볼록한 렌즈. 수정체 모양을 물으면 거의 이 답이야.",
+  "눈꺼풀": "눈을 덮는 덮개. 보호하고, 빛을 줄이고, 눈물을 펴 바르는 일을 해.",
+  "눈꺼풀올림근": "위눈꺼풀을 들어 올리는 근육. 쌍꺼풀, 눈돌림신경과 같이 묶어.",
+  "눈둘레근": "눈 주변을 둥글게 감싸는 근육. 조이면 눈이 감겨.",
+  "뮐러근": "교감신경이 조절하는 보조 눈꺼풀 근육. 눈꺼풀 틈새를 조금 더 벌려.",
+  "마이봄샘": "눈꺼풀판 안에 있는 기름샘. 눈물이 빨리 마르지 않게 돕는 쪽이야.",
+  "짜이스샘": "속눈썹 쪽 기름샘. 프린트에서는 증발 방지 단서와 같이 봐.",
+  "크라우제샘": "평소 기본 눈물을 맡는 덧눈물샘. '평상시 눈물'이면 이쪽이야.",
+  "술잔세포": "점액을 만드는 결막 세포. 이름처럼 컵에서 끈적한 점액이 나온다고 생각하면 돼.",
+  "결막 상피": "눈 표면을 덮는 얇은 막의 겉층. 점액층과 연결해서 봐.",
+  "수성층": "눈물의 물층. 눈물 대부분을 차지하고 항균 성분도 들어 있어.",
+  "안와": "눈알이 들어 있는 뼈 방. 눈알, 근육, 혈관, 신경을 보호해.",
+  "안와 지방": "눈 뒤쪽 쿠션. 충격을 흡수해서 눈알을 보호해.",
+  "안와사이막": "안와와 눈꺼풀 사이의 칸막이. 안쪽 내용물이 앞으로 밀려나오지 않게 막아.",
+  "시신경구멍": "안와 뒤쪽 통로. 시신경과 눈동맥이 지나간다고 묶어.",
+  "아래안와틈새": "위턱신경이 지나가는 아래쪽 틈. V2랑 같이 외워.",
+  "삼차신경 1분지": "눈 주변 감각 담당 가지. 결막 감각이면 V1.",
+  "삼차신경 2분지": "위턱신경. 아래안와틈새와 붙어서 나와.",
+  "위곧은근": "눈을 위로 올리는 대표 근육.",
+  "안쪽곧은근": "눈을 안쪽으로 돌리는 곧은근. 각막가장자리와 가까운 부착도 같이 봐.",
+  "가쪽곧은근": "눈을 바깥쪽으로 돌리는 근육. 6번, 가돌림신경과 한 세트야.",
+  "위빗근": "가장 긴 외안근. 도르래를 지나가서 길다고 생각하면 돼.",
+  "길항근": "서로 반대로 움직이는 근육 짝.",
+  "호이겐스": "빛을 파동처럼 퍼진다고 설명한 사람.",
+  "적색광": "가시광선 중 파장이 긴 빛. 파장이 길면 회절이 잘 보여.",
+  "브루스터 법칙": "특정 각도에서 반사광이 편광되는 법칙.",
+  "보강간섭": "파동이 겹쳐서 더 커지는 간섭. 마루와 마루가 만나는 느낌이야.",
+  "간섭": "빛 두 개가 겹쳐 밝아지거나 어두워지는 현상.",
+  "배율": "상이 물체보다 몇 배로 보이는지 나타내는 값.",
+  "굴절력": "렌즈가 빛을 얼마나 세게 꺾는지 나타내는 힘. 단위는 D야.",
+  "버전스": "빛이 모이거나 퍼지는 정도. 거리와 굴절률로 계산해.",
+  "굴절률": "빛이 그 물질 안에서 얼마나 느려지고 꺾이는지 보여주는 값.",
+  "스넬 법칙": "빛이 다른 물질로 들어갈 때 얼마나 꺾이는지 계산하는 법칙.",
+  "페르마 원리": "빛은 시간이 가장 적게 걸리는 길을 간다는 원리.",
+  "평면거울": "평평한 거울. 상은 거울 뒤 같은 거리, 같은 크기로 생겨.",
+  "전반사": "빛이 밖으로 못 나가고 전부 반사되는 현상. 임계각보다 클 때 생겨.",
+  "임계각": "굴절각이 딱 90도가 되는 경계 각도.",
+  "분산": "색마다 꺾이는 정도가 달라져 색이 갈라지는 현상.",
+  "아베수": "렌즈가 색을 얼마나 덜 흩트리는지 보는 값. 클수록 분산이 작아.",
+  "조리개": "빛이 지나가는 구멍 크기를 정하는 장치.",
+  "수차": "렌즈가 완벽하지 않아서 상이 번지거나 휘는 문제.",
+  "페츠발 조건": "상면만곡과 비점수차를 줄이는 조건 이름.",
+  "렌즈미터": "렌즈 도수와 프리즘을 재는 기계.",
+  "프리즘": "빛을 한쪽으로 꺾는 렌즈 모양. 기저 방향으로 빛을 보낸다고 봐.",
+  "PD": "동공 사이 거리. 안경 중심을 맞출 때 꼭 필요해.",
+  "DBL": "양쪽 렌즈 사이 연결부 폭. 안경테 숫자에서 가운데 값으로 자주 나와.",
+  "박싱시스템": "렌즈 모양을 사각형 박스에 넣고 치수를 재는 방식.",
+  "피팅": "안경을 얼굴에 맞게 조정하는 과정. 흘러내림, 기울기, 높이를 잡는 일이야.",
+};
+
+function humanizeText(value) {
+  return String(value || "")
+    .replaceAll("계산식이나 정의를 바꿔 다시 묻기 쉬운 문항이다.", "계산식이나 정의만 살짝 바꿔서 또 나올 수 있어.")
+    .replaceAll("문장 속 단서어를 정답과 바로 연결한다.", "단서어만 보면 바로 정답이 떠오르게 해.")
+    .replaceAll("반복되거나 계산으로 다시 나오기 쉬운 포인트다.", "반복이나 계산으로 또 나올 수 있어.")
+    .replaceAll("정답 단서와 헷갈리는 선지를 같이 본다.", "정답 단서랑 헷갈리는 선지를 같이 봐.")
+    .replaceAll("문항이다.", "문제로 다시 나올 수 있어.")
+    .replaceAll("문제다.", "문제야.")
+    .replaceAll("출제된다.", "나올 수 있어.")
+    .replaceAll("출제될 수 있다.", "나올 수 있어.")
+    .replaceAll("고르면 된다.", "고르면 돼.")
+    .replaceAll("외운다.", "외우면 돼.")
+    .replaceAll("기억한다.", "기억하면 돼.")
+    .replaceAll("연결된다.", "이어져.")
+    .replaceAll("중요하다.", "중요해.")
+    .replaceAll("핵심이다.", "핵심이야.")
+    .replaceAll("구분한다.", "구분하면 돼.")
+    .replaceAll("묻는다.", "물어봐.")
+    .replaceAll("담당한다.", "맡아.")
+    .replaceAll("존재한다.", "있어.")
+    .replaceAll("사람이다.", "사람이야.")
+    .replaceAll("현상이다.", "현상이야.")
+    .replaceAll("값이다.", "값이야.")
+    .replaceAll("조직이다.", "조직이야.")
+    .replaceAll("구조물이다.", "구조물이야.")
+    .replaceAll("근육이다.", "근육이야.")
+    .replaceAll("법칙이다.", "법칙이야.")
+    .replaceAll("받는다.", "받아.")
+    .replaceAll("준다.", "줘.")
+    .replaceAll("나눈다.", "나눠.")
+    .replaceAll("가진다.", "가져.");
+}
+
+function readableAnswer(answer) {
+  return String(answer || "").replaceAll(",", ", ");
+}
+
+function getIntent(item) {
+  const question = item.question;
+  const answer = readableAnswer(item.answer);
+
+  if (question.includes("아닌 것은")) {
+    return "틀린 것 하나를 찾는 문제야. 맞는 말 네 개를 지우고, 남는 하나를 고르면 돼.";
+  }
+  if (question.includes("순서") || question.includes("경로")) {
+    return "길을 외웠는지 보는 문제야. 시작점부터 끝점까지 순서를 안 섞으면 돼.";
+  }
+  if (question.includes("영양공급") || question.includes("공급")) {
+    return `어디에 밥을 주는지 묻는 문제야. 단서가 맞으면 답 이름은 ${answer}.`;
+  }
+  if (question.includes("지배") || question.includes("신경")) {
+    return "어느 신경이 어느 근육이나 조직을 맡는지 보는 문제야. 답 이름과 맡는 대상을 붙여서 봐.";
+  }
+  if (question.includes("통과")) {
+    return `어느 통로로 지나가는지 묻는 문제야. 통로 이름과 지나가는 구조를 한 덩어리로 외워.`;
+  }
+  if (question.includes("위치") || question.includes("장소") || question.includes("곳은")) {
+    return `어디에 있는지 묻는 문제야. 위치 단서가 나오면 답 위치는 ${answer}.`;
+  }
+  if (question.includes("기능") || question.includes("역할") || question.includes("작용")) {
+    return `무슨 일을 하는지 묻는 문제야. 기능 문장을 읽고 이름을 고르는 방식이야.`;
+  }
+  if (question.includes("몇") || question.includes("용적") || question.includes("비율") || question.includes("굴절력") || question.includes("pH") || question.includes("기준")) {
+    return "숫자나 기준값을 묻는 문제야. 계산보다 값 자체를 안 헷갈리는 게 먼저야.";
+  }
+  if (question.includes("법칙") || question.includes("현상") || question.includes("원리")) {
+    return `현상 이름을 묻는 문제야. 설명 문장을 보고 ${answer}라는 이름을 붙이면 돼.`;
+  }
+  if (question.includes("사람") || question.includes("주장한")) {
+    return `누가 말했는지 묻는 문제야. 이 이름이 어떤 주장과 붙는지만 잡으면 돼.`;
+  }
+  if (question.includes("원인")) {
+    return `왜 생기는지 묻는 문제야. 증상과 원인을 한 쌍으로 외워.`;
+  }
+  if (question.includes("색") || question.includes("형상") || question.includes("모양")) {
+    return "겉모양이나 특징을 묻는 문제야. 그림처럼 떠올리면 빨라.";
+  }
+  return "문장 속 단서가 어떤 답을 가리키는지 보는 문제야. 핵심 단서와 답 이름을 붙여서 봐.";
+}
+
+function getTermBasic(item) {
+  const answer = item.answer;
+  if (termBasics[answer]) return `${answer}: ${termBasics[answer]}`;
+
+  if (answer.includes("→")) {
+    return `이건 단어 하나보다 순서가 답이야. ${answer} 이 흐름을 통째로 읽어.`;
+  }
+  if (/[0-9]/.test(answer) || answer.includes("+") || answer.includes("-") || answer.includes("=")) {
+    return `이건 이름보다 값이 답이야. ${answer}를 숫자 모양 그대로 눈에 익혀.`;
+  }
+  if (answer.length > 16) {
+    return `${readableAnswer(answer)}: 답이 길면 쪼개서 봐. 핵심 단어를 먼저 잡고, 나머지는 조건으로 붙이면 돼.`;
+  }
+  return `${readableAnswer(answer)}: 이 문제에서 골라야 하는 핵심 이름이야. 문제 문장 속 단서와 한 쌍으로 묶어.`;
+}
+
 function renderQuestions(questions = []) {
   if (!questions.length) return "";
   return `
@@ -642,10 +796,12 @@ function renderQuestions(questions = []) {
           </div>
           <h3>${escapeHtml(item.question)}</h3>
           <div class="answer-block">
+            <p class="note intent-note"><b>뭘 묻냐</b> ${escapeHtml(getIntent(item))}</p>
+            <p class="note term-note"><b>말뜻</b> ${escapeHtml(getTermBasic(item))}</p>
             <div class="answer"><small>정답</small> ${escapeHtml(item.answer)}</div>
-            <p class="note"><b>쉽게</b> ${escapeHtml(item.easy)}</p>
-            <p class="note"><b>암기</b> ${escapeHtml(item.memory)}</p>
-            <p class="note"><b>포인트</b> ${escapeHtml(item.point)}</p>
+            <p class="note"><b>개념</b> ${escapeHtml(humanizeText(item.easy))}</p>
+            <p class="note"><b>외우기</b> ${escapeHtml(humanizeText(item.memory))}</p>
+            <p class="note"><b>시험에선</b> ${escapeHtml(humanizeText(item.point))}</p>
           </div>
           <details class="choices">
             <summary>선지</summary>
